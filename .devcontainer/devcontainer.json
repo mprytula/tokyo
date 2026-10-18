@@ -1,0 +1,35 @@
+{
+    "name": "tokyo",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:24-bookworm",
+    "features": {
+        "ghcr.io/devcontainers/features/aws-cli:1": {},
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    },
+    "mounts": [
+        // Linux-only node_modules (Biome ships a native binary per platform) and faster I/O on macOS.
+        "source=tokyo-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+        // Share host AWS credentials and SSO cache.
+        "source=${localEnv:HOME}/.aws,target=/home/node/.aws,type=bind"
+    ],
+    "containerEnv": {
+        "AWS_SDK_LOAD_CONFIG": "1"
+    },
+    "postCreateCommand": "sudo chown node:node node_modules && npm ci && npm install -g czg@1.14.0",
+    "remoteUser": "node",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "biomejs.biome",
+                "Orta.vscode-jest",
+                "amazonwebservices.aws-toolkit-vscode",
+                "ms-azuretools.vscode-docker",
+                "EditorConfig.EditorConfig"
+            ],
+            "settings": {
+                "jest.runMode": "on-demand",
+                "jest.jestCommandLine": "npx jest",
+                "aws.telemetry": false
+            }
+        }
+    }
+}

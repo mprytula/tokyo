@@ -1,0 +1,138 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "includes": ["**", "!**/dist", "!**/cdk.out", "!**/coverage"]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 100
+    },
+    "javascript": {
+        "parser": {
+            "unsafeParameterDecoratorsEnabled": true
+        },
+        "formatter": {
+            "semicolons": "always",
+            "quoteStyle": "double",
+            "trailingCommas": "all"
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended",
+            "correctness": {
+                "noUnusedImports": "error",
+                "noUnusedVariables": "error",
+                "noUnusedFunctionParameters": "warn",
+                "noUnusedPrivateClassMembers": "error",
+                "noUndeclaredDependencies": "error",
+                "useImportExtensions": "off"
+            },
+            "style": {
+                "useImportType": {
+                    "level": "error",
+                    "options": { "style": "separatedType" }
+                },
+                "useExportType": "error",
+                "useNodejsImportProtocol": "error",
+                "useConst": "error",
+                "useBlockStatements": "error",
+                "useTemplate": "error",
+                "useThrowNewError": "error",
+                "useThrowOnlyError": "error",
+                "useDefaultParameterLast": "error",
+                "useReadonlyClassProperties": "error",
+                "noParameterAssign": "error",
+                "noNonNullAssertion": "warn",
+                "noDefaultExport": "error",
+                "noParameterProperties": "off",
+                "noInferrableTypes": "error",
+                "noUselessElse": "error"
+            },
+            "suspicious": {
+                "noExplicitAny": "error",
+                "noConsole": "warn",
+                "noDoubleEquals": "error",
+                "noFocusedTests": "error",
+                "noSkippedTests": "warn",
+                "noImportCycles": "warn",
+                "noEvolvingTypes": "error",
+                "useAwait": "warn",
+                "useErrorMessage": "error"
+            },
+            "complexity": {
+                "noExcessiveCognitiveComplexity": "warn",
+                "noUselessConstructor": "error"
+            },
+            "nursery": {
+                "noFloatingPromises": "error",
+                "noMisusedPromises": "error"
+            }
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    },
+    "overrides": [
+        {
+            // Nest DI and reflection (emitDecoratorMetadata) need classes in decorated signatures imported as values; Biome can't detect this, so its fix would break injection.
+            "includes": [
+                "**/*.module.ts",
+                "**/*.controller.ts",
+                "**/*.service.ts",
+                "**/*.provider.ts",
+                "**/*.repository.ts",
+                "**/*.guard.ts",
+                "**/*.interceptor.ts",
+                "**/*.pipe.ts",
+                "**/*.filter.ts",
+                "**/*.middleware.ts",
+                "**/*.gateway.ts",
+                "**/*.resolver.ts",
+                "**/*.strategy.ts",
+                "**/*.processor.ts",
+                "**/*.consumer.ts",
+                "**/*.listener.ts",
+                "**/*.handler.ts",
+                "**/*.dto.ts",
+                "**/*.entity.ts",
+                "**/*.schema.ts"
+            ],
+            "linter": {
+                "rules": {
+                    "style": { "useImportType": "off" }
+                }
+            }
+        },
+        {
+            "includes": ["**/*.test.ts", "**/*.spec.ts", "test/**"],
+            "linter": {
+                "rules": {
+                    "style": { "noNonNullAssertion": "off" },
+                    "suspicious": { "noConsole": "off" }
+                }
+            }
+        },
+        {
+            "includes": ["*.config.js", "*.config.ts"],
+            "linter": {
+                "rules": {
+                    "style": { "noDefaultExport": "off" }
+                }
+            }
+        }
+    ]
+}
