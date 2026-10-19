@@ -6,7 +6,13 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["**", "!**/dist", "!**/cdk.out", "!**/coverage"]
+        "includes": [
+            "**",
+            "!**/dist",
+            "!**/cdk.out",
+            "!**/coverage",
+            "!.devcontainer/devcontainer-lock.json"
+        ]
     },
     "formatter": {
         "enabled": true,
@@ -20,7 +26,7 @@
         },
         "formatter": {
             "semicolons": "always",
-            "quoteStyle": "double",
+            "quoteStyle": "single",
             "trailingCommas": "all"
         }
     },

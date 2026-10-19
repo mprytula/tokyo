@@ -3,8 +3,7 @@ export function greet(name: string): string {
 }
 
 if (require.main === module) {
-    console.log(greet("Tokyo"));
+    console.log(greet('Tokyo'));
 }
 
-console.log('foo')
-   
+console.log('foo');
